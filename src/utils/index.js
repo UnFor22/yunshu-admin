@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { Message } from 'element-ui';
-import { router } from '../router'
-import { resolve } from 'path';
-import { rejects } from 'assert';
+import router from '../router/index'
 
 const baseURL = '/api/admin'
 
@@ -31,6 +29,18 @@ const xhr = {
                 console.log(err)
             })
         })
+    },
+    fetch (url,data,config, methods) {
+        return new Promise((resolve,reject) => {
+            instance[methods](url, data, config).then(res => {
+                resolve(res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+        })
+    },
+    put(url,data,config){
+        return this.fetch(url, data, config, 'put')
     }
 }
 export const $axios = xhr

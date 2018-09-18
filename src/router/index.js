@@ -7,10 +7,11 @@ const components = {
   layout: ()=>import('@/views/layout/layout'),
   index: ()=>import('@/views/index/index'),
   users: ()=>import('@/views/users/users'),
-
+  update: ()=>import('@/views/testUploadDemo/testUploadDemo'),
+  userEdit: ()=>import('@/views/userEdit/userEdit')
 }
 
-var router = new Router({
+const router =  new Router({
   routes: [
     {
       path: '/',
@@ -38,6 +39,20 @@ var router = new Router({
               title: '用户管理'
             },
             component: components.users,
+          },
+          {
+            path: 'update',
+            meta: {
+              title: '图片上传'
+            },
+            component: components.update,
+          },
+          {
+            path: 'userEdit',
+            meta: {
+              title: '修改个人信息'
+            },
+            component: components.userEdit,
           }
       ]
     }
