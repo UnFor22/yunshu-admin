@@ -9,7 +9,7 @@ const store = new Vuex.Store({
         userinfo: {
             username: '',
             avatar: '',
-            desc: '',
+            desc: '',   
             email: '',
             nickname: ''
         }
