@@ -1,21 +1,23 @@
 <template>
     <div>
-        <h2>修改个人信息</h2>
+        <h2>修改图书信息</h2>
         <div class="form-wrap">
             <el-form :model="formData" size="small" label-width="80px" label-position="left">
-            <el-form-item label="用户名">
-                <el-input v-model="formData.username" :disabled="true"></el-input>
+            <el-form-item label="作者">
+                <el-input v-model="formData.author"></el-input>
             </el-form-item>
-            <el-form-item label="昵称">
-                <el-input v-model="formData.nickname"></el-input>
+            <el-form-item label="书籍头图">
+                <uploadImg v-model="formData.img" style="float:left"></uploadImg>
             </el-form-item>
-            <el-form-item label="邮箱">
-                <el-input v-model="formData.email"></el-input>
+            <el-form-item label="Index">
+                <template>
+                    <el-input-number v-model="formData.index" :min="1" :max="1000" size="large" label="Index"></el-input-number>
+                </template>
             </el-form-item>
-            <el-form-item label="用户头像">
-                <uploadImg v-model="formData.avatar" style="float:left"></uploadImg>
+            <el-form-item label="标题">
+                <el-input v-model="formData.title"></el-input>
             </el-form-item>
-            <el-form-item label="个性签名">
+            <el-form-item label="描述">
                 <el-input type="textarea" v-model="formData.desc"></el-input>
             </el-form-item>
             <el-form-item>
@@ -29,44 +31,43 @@
 <script>
     import uploadImg from '@/components/upload-com.vue'
     export default {
-        name: 'userEdit',
         components: {
             uploadImg
         },
         data () {
             return {
                 formData: {
-                    username: '',
-                    nickname: '',
-                    email: '',
+                    author: '',
+                    img: '',
+                    index: '',
+                    title: '',
                     desc: '',
-                    avatar: ''
+                    type: '',
+                    _id: this.$route.query.id
                 },
-                data: {
-                    token: ''
-                }
+                
             }
         },
         methods: {
-            initData() {
-                this.formData = {
-                    ...this.$store.state.userinfo
-                }
+            getFormData(){
+                this.$axios.get(`/book/${this.$route.query.id}`).then(res => {
+                    console.log(res)
+                    console.log(this.formData._id)
+                    this.formData = res.data
+                })
             },
             handleClick() {
-                this.$axios.put('/user/userInfo',this.formData).then(res=>{
+                this.$axios.put('/book',this.formData).then(res=>{
                     console.log(res)
                     if(res.code == 200){
-                        let userInfo = res.data
-                        this.$store.commit('CHANGE_USERINFO',userInfo)
-                        this.initData()
+                        let userInfo = res.data  
                         this.$message.success(res.msg)
                     }
                 })
             }
         },
         created() {
-            this.initData()
+            this.getFormData()
         }
     }
 </script>

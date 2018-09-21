@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>分类列表<i title="添加分类" class="el-icon-circle-plus-outline" ></i></h3>
+        <h2>分类列表<i title="添加分类" class="el-icon-circle-plus-outline" ></i></h2>
         <el-table
     :data="tableData"
     style="width: 100%">
@@ -87,19 +87,23 @@
                 })
             },
             handleEdit(index, row) {
-                this.$router.push(`/index/changeList?id=${row._id}`)
+                let id = row._id
+                this.$router.push(`/layout/catalogEdit?id=${id}`)
             },
             handleList(index, row) {
-                this.$router.push(`/index/onCatalog?id=${row._id}`)
+                let id = row._id
+                this.$router.push(`/index/onCatalog?id=${id}`)
             },
             handleDelete(index, row) {
                 this.$confirm('此操作将永久删除该文件，是否继续？','提示',{
                     confirmButtonText:'确定',
                     cancelButtonText:'取消',
                     type: 'warning',
-                    center: true
+                    // center: true
                 }).then(()=>{
+                    // console.log(row._id)
                     this.$axios.delete(`/category/${row._id}`).then(res=>{
+                        // console.log(res)
                         if(res.code == 200){
                             this.getLists()
                             this.$message({
@@ -132,16 +136,21 @@
 </script>
 
 <style scoped lang='scss'>
+    h2 {
+        font-weight: 400;
+        color: #666;
+        margin-bottom: 20px;
+    }
     img {
         width: 50px;
         height: 50px;
         border-radius: 50%;
     }
-    h3 {
+    h2 {
         i {
             margin-left: 20px;
             font-size: 20px;
-            color: #888;
+            color: #333;
             vertical-align: middle;
         }
     }

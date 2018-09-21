@@ -41,6 +41,18 @@ const xhr = {
     },
     put(url,data,config){
         return this.fetch(url, data, config, 'put')
-    }
+    },
+    delete (url,data,config){
+        return new Promise((resolve,reject) => {
+            instance.delete(url, {params: data}, config).then(res => {
+                if (res.data.code == 401){
+                    Message.error('登录状态失效，正在跳转登录页')
+                    router.push('/login')
+                }
+                resolve(res.data)
+            })
+        })
+    },
+
 }
 export const $axios = xhr

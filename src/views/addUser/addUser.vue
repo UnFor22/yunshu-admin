@@ -69,8 +69,13 @@
 </script>
 
 <style scoped>
+    h2 {
+        font-weight: 400;
+        color: #666;
+    }
     .form-wrap {
         width: 600px;
         margin-top: 20px;
+        margin-left: 10px;
     }
 </style>

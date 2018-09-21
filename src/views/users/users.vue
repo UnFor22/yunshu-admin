@@ -1,12 +1,12 @@
 <template>
     <div class="user-manage">
-        <div class="breadcrumb">
+        <!-- <div class="breadcrumb">
             <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item :to='{ path: "/laout/index"}'>首页</el-breadcrumb-item>
                 <el-breadcrumb-item>用户管理</el-breadcrumb-item>
             </el-breadcrumb>
-        </div>
-
+        </div> -->
+        <h2>用户管理</h2>
         <el-table :data = 'tableData'>
             <el-table-column
                 prop='nickname'
@@ -103,10 +103,15 @@
 </script>
 
 <style scoped lang='scss'>
-.user-manage {
-    .breadcrumb{
+    h2 {
+        font-weight: 400;
+        color: #666;
         margin-bottom: 20px;
     }
+.user-manage {
+    // .breadcrumb{
+    //     margin-bottom: 20px;
+    // }
     .avatar {
         width: 60px;
         height: 60px;

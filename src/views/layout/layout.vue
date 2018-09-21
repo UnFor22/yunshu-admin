@@ -1,7 +1,22 @@
 <template>
     <div class="layout">
         <div class="header ml-200">
-            <h1 class="title">云书后台操作系统</h1>
+            <h1 class="title">云书后台操作系统
+              <div class="header-user">
+              <el-dropdown @command="handlecommand">
+                <el-button class="user">
+                  <img class="user-img" :src="$store.state.userinfo.avatar" alt="">
+                  <i class="el-icon-arrow-down el-icon--right"></i>
+                </el-button>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item command="1">修改个人信息</el-dropdown-item>
+                  <el-dropdown-item command="2">修改密码 </el-dropdown-item>
+                  <el-dropdown-item command="3">退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+            </h1>
+            
         </div>
         <div class="side-bar">
             <el-menu
@@ -68,9 +83,29 @@
 </template>
 
 <script>
-export default {
-  name: "layout"
-};
+  import { mapState } from 'vuex'
+  export default {
+      computed: {
+        ...mapState(['userinfo'])
+      },
+      methods:{
+        handlecommand(command){
+          if(command == 1){
+            this.$router.push('/layout/userEdit')
+          }else if(command == 2){
+            this.$router.push('/layout/changePassword')
+          }else if(command == 3){
+            this.$axios.get('/logout').then(res => {
+              console.log(res)
+              if(res.code == 200){
+                this.$message.success(res.msg)
+                this.$router.push("/")
+              }
+            })
+          }
+        }
+      }
+  };
 </script>
 
 <style scoped lang = 'scss'>
@@ -87,6 +122,21 @@ export default {
   }
   .ml-200 {
     margin-left: 200px;
+    .header-user{
+      float: right;
+      .user{
+        margin: 0;
+        padding: 0;
+        background: #233a4b;
+        border: none;
+      }
+    }
+    
+  }
+  .user-img {
+    width: 56px;
+    height: 56px;
+    border-radius:50%; 
   }
   .side-bar {
       position: fixed;

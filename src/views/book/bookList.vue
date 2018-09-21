@@ -61,7 +61,7 @@
             return {
                 tableData: [],
                 count: 10,
-                size: 10,
+                size: 200,
                 page: 1
             }
         },
@@ -76,7 +76,7 @@
                 this.count = (this.tableData.length) / this.size + 1
             },
             handleEdit(index, row) {
-                console.log(index, row);
+                this.$router.push(`/layout/bookEdit?id=${row._id}`)
             },
             handleDelete(index, row) {
                 this.$confirm('此操作将永久删除该文件，是否继续？','提示',{
@@ -103,6 +103,7 @@
             }, 
             pageChange(page){
                  this.page = page
+                 this.getData()
             }         
         },
         created() {
@@ -119,6 +120,7 @@
 <style scoped lang = 'scss'>
     h2 {
         font-weight: 400;
+        color: #666;
         margin-bottom: 20px;
     }
     .avatar {
@@ -134,7 +136,4 @@
         text-align: center
     }
 
-    /* zahuishi  */
-    /* zahuishi  */
-    /* zahuishi  */
 </style>

@@ -12,9 +12,11 @@ const components = {
   addUser: ()=>import('@/views/addUser/addUser'),
   catalogList: ()=>import('@/views/catalog/catalogList'),
   addCatalog: ()=>import('@/views/catalog/addCatalog'),
+  catalogEdit: ()=>import('@/views/catalog/catalogEdit'),
   changePassword: ()=>import('@/views/changePassword/changePassword'),
   bookList: ()=>import('@/views/book/bookList'),
   addBook: ()=>import('@/views/book/addBook'),
+  bookEdit: ()=>import('@/views/book/bookEdit'),
   swiperList: ()=>import('@/views/swiper/swiperList'),
 }
 
@@ -104,11 +106,25 @@ const router =  new Router({
             component: components.addBook
           },
           {
+            path: 'bookEdit',
+            meta: {
+              title: '修改图书'
+            },
+            component: components.bookEdit
+          },
+          {
             path: 'swiperList',
             meta: {
               title: '轮播图列表'
             },
             component: components.swiperList
+          },
+          {
+            path: 'catalogEdit',
+            meta: {
+              title: '轮播图列表'
+            },
+            component: components.catalogEdit
           }
       ]
     }
